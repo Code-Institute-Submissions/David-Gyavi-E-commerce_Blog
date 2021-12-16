@@ -1,6 +1,6 @@
 # **E-Commerce-Blog**
 
-![different_screen](media)
+![image](<img width="576" alt="image" src="https://user-images.githubusercontent.com/58527807/146288159-84ff1c51-3236-4cc0-8108-e7febe3da80c.png">)
 
 ## **Goal for this project**
 
