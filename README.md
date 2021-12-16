@@ -1,6 +1,6 @@
 # **E-Commerce-Blog**
 
-![image](<img width="576" alt="image" src="https://user-images.githubusercontent.com/58527807/146288159-84ff1c51-3236-4cc0-8108-e7febe3da80c.png">)
+<img width="599" alt="image" src="https://user-images.githubusercontent.com/58527807/146306462-992c8cd7-2348-412f-8083-e29f9e095b10.png">
 
 ## **Goal for this project**
 
@@ -151,7 +151,7 @@ This way my content will be easily readable.
 #### Fonts
 In order to find appropriate fonts for my website, I have visited [Google Fonts](https://fonts.google.com "Google Fonts") to explore the various options.
 For the titles and subtitles, I have used the font [Play](https://fonts.google.com/specimen/Roboto "Roboto") 
-and for the main text I have used [Cormorant Garamond](https://fonts.google.com/specimen/Roboto "Roboto"). 
+and for the main text I have used [Roboto](https://fonts.google.com/specimen/Roboto "Roboto"). 
 
 <a></a>
 
