@@ -531,3 +531,116 @@ Cancel button also takes the user back to the dashboard in case the user doesn't
 I noticed when testing that when the user would edit a product profile and change the product name to an already existing dog profile name, the user would still have 2 product profiles with the same name. 
 Also here I now first check to see if the product name already exists in the database for this user and if so, feedback is provided to the user and the form is not being processed. 
 The user can either choose a different name or cancel to go back to the dashboard. I still ran in quite some difficulties when implementing this. You can find more information in [Bugs](#bugs).
+* **Result**  
+The edit functionality works as planned across various browsers and devices. 
+The correct document in the logs or dogs database in being updated and the user is taken back to the relevant dashboard. 
+Cancel button redirects the user correctly to the relevant dashboard. 
+
+* **Verdict**  
+The test has passed all the criteria and works like planned.
+
+### **Delete log and/or product**
+
+#### User story: As a user, I want to have the possibiltiy to delete a log as well when no longer relevant. 
+
+* **Plan**  
+    * Log  
+    In case the information is no longer relevant, the user should be able to delete a log. 
+    There will be a delete button (delete icon) which the user can use. The relevant log will be removed from the database and the user will stay on the relevant dashboard. 
+
+    * product   
+    The user should be able to delete the product profile, even though there would only be 1product remaning. 
+    If the last product has been removed, the user will be taken again to the blank dashboard where the user can decide to add a product. 
+    The reason why I created a seperate dashboard for this is because the view dashboard url functions with the user id and the product id, there always needs to be at least 1 product added to the profile. 
+    Therefore I created a blank dashboard which doesn't take the product_id as a parameter with the same structure as the view_dashboard.
+    When the user still has multiple product and deletes a profile, the dashboard of the (one of the) remaining product(s) will be displayed.
+
+* **Implementation**  
+I have added the delete button to every log, next to the edit button. 
+I have worked with self explanatory icons which improves the overall look of the dashboard. 
+When the user clicks on the button, the log with the relevant log_id will be removed from the database and is being redirected to the correct dashboard.
+Below each product profile, the same delete icon is being displayed. 
+
+* **Test**  
+When the delete button for the log is clicked, the relevant log is being removed and the user stays on the relevant dashboard. 
+When delete button of the product profile has been clicked, the relevant product is being removed from the database. 
+When user removes last product, the user being redirect to the blank_dashboard.
+When the user has multiple product in its profile and removes 1, user is redirected to view_dashboard of (one of) the remaining product(s).
+
+    While I was testing the delete functionality, I realised that by deleting a complete dog profile or a log, you will lose all the profile info / log info. 
+    To make sure that the user doesn't click the delete button by accident, I have included a modal to confirm that the user would like to proceed with deleting the product profile / log.
+
+* **Result**  
+The delete funtionality works as planned across various browsers and devices. 
+The modal opens up when the button is clicked asking the user if they are sure they would like to delete the profile / log. 
+When no is selected, the user is taken back the dashboard. When yes, the product_profile or log is deleted from the database. 
+The delete button for the product profile is correctly being displayed and works as planned.
+
+* **Verdict**  
+The test has passed all the criteria and works like planned.
+
+### **Log out**
+
+#### User story: As a user, I want to be able to log out of my profile.
+
+* **Plan**  
+As soon as the user is logged in, an icon with a dropdown will appear on the right side of the navbar. 
+When clicking on the icon, the dropdown with log out will appear. 
+When the button is clicked, the user will be logged out of its account and be redirected to the home page of the website. 
+
+* **Implementation**  
+I have added a dropdown with an icon in the navbar when the user is logged in. 
+The log out dropdown will appear below the account icon by setting the coverTrigger to false in script.js.
+When the user clicks the button, it will remove the user_id from the session and the user will be redirected to the homepage.
+
+* **Test**  
+When clicking the button, the user is being logged out and the home.html is being loaded. 
+I have tested this functionality on each page where logging out is possible.
+
+* **Result**  
+Log out function workes as planned across various devices and browsers. 
+
+* **Verdict**  
+The test has passed all the criteria and works like planned.
+
+
+[Back to Top](#table-of-contents)
+
+## **Bugs**
+
+### **Cancel Add dog button not working**
+
+* **Bug**  
+When the user opens the add another product (already having at least one product under its account), a cancel button is provided to the user in case he doesn't want to proceed.
+This button was set up like my other 'cancel' buttons with an anchor link that takes the user back to the dashboard. 
+
+    To add another product, you will not 'send' a product_id in the url but only the user_id. The product_id will be created when the user has added the product. 
+    To load the view_dashboard, you need a user_id AND a product_id in order to display the dashboard of a certain product. 
+    This was not working as the product_id will not be generated in case the add product was cancelled. 
+
+    When the user would add a product, coming from the blank dashboard there was no issue as the blank dashboard doesn't require a product_id. 
+    Here I could just implement my redirect to the blank dashboard function. 
+
+* **Fix**       
+After some research on how to approach this, I have decided to use the javascript window.history.back() which resolved the issue. 
+This might not be the best solution for this problem but it resolves the bug and takes the user back to the dashboard of product who was displayed on the screen before.
+
+* **Verdict**    
+Cancel add product button is now working as planned. 
+
+### **Dashboard of first product of the user is always displaying after adding/editing logs for other product profile**
+
+* **Bug**  
+When I had multiple products added to a user account and I wanted to add/edit a log or edit the product profile, the user was redirected to the dashboard. 
+Instead of displaying the dashboard of the productfor which you just performed a change, the dashboard of the first product from the user in the collection was being displayed. 
+
+* **Fix**       
+In order to have this resolved, I have decided to include the product_id in the dashboard url and add a hidden field in the forms that takes the product_id. 
+The dog_id would be posted along with the other fields and stored in the database. 
+For the dashboard view, I would then use that id to display the profile of the product for which the change was made. 
+
+* **Verdict**   
+The fix resolved the issue and the dashboard of the product for which the change was made is being shown after submitting the form.
+
+### **Logs and profile of product with same name appearing in different user accounts**
+
