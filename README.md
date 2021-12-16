@@ -131,21 +131,6 @@ The reason for this is that for this project, the functionality is much more imp
 
 <a></a>
 
-#### Colors
-
-Like I mentioned before, But all the colors I have used mostlty have followed that of the Ado-Botique project colors that fit well with the feeling of a Ecommerce site.
-Below I will explain more why I choose the various colors and for what I will be using them.
-
-![Color Palette](wireframes/color-palette.png)
-
-* #ffffff: I have decided to keep the background of the overall website white in order give the clean look. I will also use this color as text color for the nav bar and buttons.
-* #D9D9D9: This color I will use as a background color for whole dashboard. 
-* #F5F5F5: This color I will use as a background color for the logs on the dashboard in order to have a small contract versus #D9D9D9 dashboard color.
-* #284B63: This will be the color that I will use for my navigation bar and buttons in order to give a bit of color to the website. This color will also be used as the overall text color.
-
-I have used a contrast checker in order to make sure that the contrast is sufficient.
-This way my content will be easily readable. 
-
 <a></a>
 
 #### Fonts
