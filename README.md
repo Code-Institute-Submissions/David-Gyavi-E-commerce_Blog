@@ -644,3 +644,199 @@ The fix resolved the issue and the dashboard of the product for which the change
 
 ### **Logs and profile of product with same name appearing in different user accounts**
 
+* **Bug**  
+When I had multiple user accounts which had products with the same name, often the information like logs, profile description etc of the product with the same name from another user account was being displayed. 
+I needed to make sure that only the data of the product of the relevant user account is being displayed. 
+
+* **Fix**       
+I noticed that in some of my functions, I only used product_name in order to find certain data. 
+By adding the user_id to the find function, I have managed to only get the information of the product of that user.
+This change had to be made in the view_dashboard function as well as in the product function.
+
+* **Verdict**   
+The fix resolved the bug and only the data of the product of the relevant user is being displayed on the dashboard. 
+
+### **Floating Action Button not showing good on mobile devices**
+
+* **Bug**  
+I had implemented a floating action button on the dashboard which allowed the user to click the add log button wherever the user was situated on the screen. 
+This was used to prevent that the user had to scroll back to the top in order to add a log. 
+However when I was testing this implementation I noticed that on mobile devices, it was working rather confusing. 
+As the display of the product_profile takes up full view height, the floating action button was being displayed on top of the product_profile. 
+The user might have gotten confused the add log button with the add product button which is not good for user experience.
+
+* **Fix**       
+My first idea was to only show the floating action button as off the moment the user scrolled down to the logs section but I was unable to implemented this. 
+As a result, I have decided to hide the floating action button on small devices and added a fixed button right under the search button where the user can click to add a log. 
+
+* **Verdict**   
+It doesn't give the same user experience as the floating action button on medium and large devices but it still provides a better user experience than the floating action button being displayed on top of the product profile. 
+
+### **Removing last product of a user account**
+
+* **Bug**  
+When the user only has 1 product left under its account, the user was still able to delete the profile which resulted in an error. 
+This was caused by the dashboard needing a product_id in order to display the dashboard. 
+As it was the last product of the user being deleted, there was no product that could be displayed. 
+
+* **Fix**       
+My first idea here was to disable the remove button when there was only 1 product profile left. 
+After I implemented this idea, I was still not 100% satisfied with the fix as I think the user should be able to delete the last product on its profile. 
+Instead I have enabled to delete button again when there is only 1 product remaining and when the lastproduct has been removed, the user is being redirected to the blank_dashboard.
+Here the user can see a very simple dashboard where the only call-to-action is to add a productprofile. 
+On the add product page I have changed to heading depending on if the user already has a productor not. 
+If yes, the heading will display 'Add another product to your profile' and when not 'Add a product profile to start tracking'.
+For this fix to work, I added an if statement in my delete productfunction to check the amount of products that the user has in its account.
+
+* **Verdict**   
+I think that my second approach to this issue is a better solution than the first. 
+Especially when thinking about the user experience. 
+I'm satisfied with the fix and the user is now able to remove their product profile, even if there is only 1 remaining. 
+
+### **Order of logs on dashboard**
+
+* **Bug**  
+After various testing, I noticed that the order of my logs was not correct. 
+Logs of November were only being displayed after the ones of October for example.
+
+* **Fix**
+After some research, I figured out it was due to the date format that I set in script.js. 
+The date was being sorted in app.py in reversed order, but as my months were written in full, the was being sorted alphabetically reversed. 
+To resolve this, I have change the format so the months will be written in numbers as well. 
+As on my dashboard, for visual impact, I wanted to keep on working with the full months, I have implemented another function in javascript. 
+This function loops through the log_months and sets the innerText depending on which month.
+
+* **Verdict**
+I can imagine there might be a better solution for this but the above fix resolved the issue of the sorting while being able to keep my original design for the dashboard.
+
+
+* **Bug**
+I wanted to make the field of log_date required as a log without a date doesn't make a lot of sense. 
+The required attribute was not working as planned, allowing the user to add a log without a log date.
+
+* **Fix**
+As I have disabled manual input by adding the read-only attribute, the required attribute didn't work anymore. 
+I have found a way around to still not allow manual input but through javascript instead of the read-only attribute. 
+
+* **Verdict**
+It is now working as planned. Manual input is disabled while the input is still required for the user. 
+
+### **Edit name of product in product profile"
+* **Bug** 
+As a user shouldn't have 2 product profiles with the same name, I implemented a function that verifies if the name already exists and doesn't allow to add the product with that name to the database. 
+When the user wants to edit the product profile and tries to change the name to an already existing product_profile, it shouldn't be possible. 
+This was working but due to this, the user was not able to submit any other changes to the profile becasuse the name already existed in the database which makes sense.
+
+* **Fix**
+I now check first if the product_name of the form matches with the product_name in the database, in that case, the user can proceed with the update.
+If not, I check if the new product_name from the form already exists in the database of the user, if yes, feedback to the user is being displayed that a profile already exists for this product. 
+If the name doesn't exists, the user can proceed with update. 
+In order to prevent the user making a profile with the same name but all small letters instead of capitalized, I have stored the product_name in lowercase in the database. 
+
+* **Verdict** 
+User is not able to add a product profile if the product_name already exists while he/she is still able to update the product_profile and change the name as long as it doesn't exist yet for that user. 
+Satisfied with the result and works now as planned.
+
+
+### **Loading time css**
+
+* **Bug**  
+I noticed that in some cases where the internet speed is not optimal that my style.css has a small delay in loading after the css of Materialize. 
+This results in the colors of Materialize showing for a split second before the colors of style.css are loaded.
+
+* **Verdict**
+I have double checked if I placed my links in my head element in the correct order which is the case. 
+For now no concrete solution yet but more research will be done on this and be updated in future releases.
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+## **Deployment**
+
+### Local Deployment
+
+I have created the ECOMMERCE SITE project using Github, from there I used [Gitpod](https://gitpod.io/) to write my code. 
+Then I used commits to git followed by "git push" to my GitHub repository. 
+I've deployed this project to Heroku and used "git push heroku master" to make sure my pushes to GitHub were also made to Heroku. 
+I connected the checkout form to stripe for payment to ensure the the payment is secure and safe.
+Then after I had to create an account in AWS environment where by I could upload my file easier by creating the bucket folder.
+This project can be ran locally by following the following steps: (
+I used Gitpod for development, so the following steps will be specific to Gitpod. 
+You will need to adjust them depending on your IDE. You can find more information about installing packages using pip and virtual environments [here](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+[Heroku](https://kellyd-ecommerce-blog.herokuapp.com/) : heroku deployment link
+
+
+
+To clone the project: 
+
+1. From the application's repository, click the "code" button and download the zip of the repository.
+    Alternatively, you can clone the repository using the following line in your terminal:
+
+    ``` 
+    git clone https://github.com/David-Gyavi/E-commerce_Blog.git
+    ``` 
+
+
+    If you plan on pushing this application to a public repository, ensure that env.py is added to your .gitignore file.
+
+1. The application can now be run locally. In your terminal, type the following command 
+    ```
+    python3 manage.py runserver. 
+    ```
+    
+### To deploy your project on Heroku, use the following steps: 
+
+1. Login to your Heroku account and create a new app. Choose your region. 
+1. Ensure the Procfile and requirements.txt files exist are present and up-to-date in your local repository.  
+    Requirements:
+    ```
+    pip3 freeze --local > requirements.txt
+    ```
+    Procfile:
+    ```
+    echo web: python app.py > Procfile
+    ```
+1. The Procfile should contain the following line:
+    ```
+    web: python app.py
+    ```
+
+1. Scroll down to "deployment method"-section. Choose "Github" for automatic deployment.
+1. From the inputs below, make sure your github user is selected, and then enter the name for your repo. Click "search". When it finds the repo, click the "connect" button.
+1. Scroll back up and click "settings". Scroll down and click "Reveal config vars". Set up the same variables as in your env.py (IP, PORT, SECRET_KEY, MONGO_URI and MONGODB_NAME):
+    !You shouldn't set the DEBUG variable in under config vars, only in your env.py to prevent DEBUG being active on live website. 
+
+    ```
+    SECRET_KEY = YOUR_SECRET_KEY
+    AWS_ACCESS_KEY_ID = YOUR_AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY = YOUR_AWS_SECRET_ACCESS_KEY
+    DATABASE_URL = YOUR_DATABASE_URL
+    SECRET_KEY = YOUR_SECRET_KEY
+    STRIPE_PUBLIC_KEY = YOUR_STRIPE_PUBLIC_KEY
+    STRIPE_SCRET_KEY = YOUR_STRIPE_SCRET_KEY
+    STRIPE_WH_SECRET = YOUR_STRIPE_WH_SECRET
+    USE_AWS = YOUR_USE_AWS
+    ```
+
+1. Scroll back up and click "Deploy". Scroll down and click "Enable automatic deployment".
+1. Just beneath, click "Deploy branch". Heroku will now start building the app. When the build is complete, click "view app" to open it.
+1. In order to commit your changes to the branch, use git push to push your changes. 
+    
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+## **Credits**
+
+* I have used google for the pictures publicly available  [Google](https://google.com) for the product images that I have used for my homescreen. 
+
+* While I was developing this website, I ran into some difficulties that I didn't know how to tackle. I want to thank the [Stackoverflow](https://stackoverflow.com/) community for making their useful content available online. 
+
+* I would like to thank my mentor Malia [Malia](https://github.com/maliahavlicek) for his endless support and guiding me into becomming a better developer!
+
+* Last but not least, I would also like to thank the code institute tutors for the help they rendered to me [tutors](https://learn.codeinstitute.net/ci_support/diplomainsoftwaredevelopment/tutor) It has really helped me to improve my website and make sure it has an overall good user experience.
+
+[Back to Top](#table-of-contents)
+
