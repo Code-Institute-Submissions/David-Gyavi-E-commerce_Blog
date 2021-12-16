@@ -795,16 +795,16 @@ To clone the project:
     ```
     Procfile:
     ```
-    echo web: python app.py > Procfile
+    echo web: python3 manage.py runserver > Procfile
     ```
 1. The Procfile should contain the following line:
     ```
-    web: python app.py
+    web: python3 manage.py runserver
     ```
 
 1. Scroll down to "deployment method"-section. Choose "Github" for automatic deployment.
 1. From the inputs below, make sure your github user is selected, and then enter the name for your repo. Click "search". When it finds the repo, click the "connect" button.
-1. Scroll back up and click "settings". Scroll down and click "Reveal config vars". Set up the same variables as in your env.py (IP, PORT, SECRET_KEY, MONGO_URI and MONGODB_NAME):
+1. Scroll back up and click "settings". Scroll down and click "Reveal config vars". Set up the same variables as in your env.py (SECRET_KEY and DATABASE_NAME):
     !You shouldn't set the DEBUG variable in under config vars, only in your env.py to prevent DEBUG being active on live website. 
 
     ```
